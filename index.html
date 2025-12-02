@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExpressVPN Clone - Secure VPN Service</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0c1c2c;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #0c1c2c;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: #00a854;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 8px;
+            color: #00a854;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #00a854;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #00a854;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            background-color: #008f47;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 168, 84, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(to bottom, #0c1c2c, #0f2842);
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: #b0c4d4;
+        }
+        
+        .tagline {
+            display: inline-block;
+            background-color: rgba(0, 168, 84, 0.2);
+            color: #00a854;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: #0f2842;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 60px;
+            font-weight: 700;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background-color: #1a3655;
+            padding: 40px 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-card i {
+            font-size: 48px;
+            color: #00a854;
+            margin-bottom: 25px;
+        }
+        
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: #b0c4d4;
+        }
+        
+        /* Benefits Section */
+        .benefits {
+            padding: 80px 0;
+            background-color: #0c1c2c;
+        }
+        
+        .benefits-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .benefits-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .benefits-text h2 {
+            font-size: 36px;
+            margin-bottom: 25px;
+        }
+        
+        .benefits-text p {
+            color: #b0c4d4;
+            margin-bottom: 20px;
+        }
+        
+        .benefits-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .benefits-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Global Stats */
+        .global-stats {
+            padding: 80px 0;
+            background-color: #0f2842;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .stat-item {
+            padding: 30px;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: #00a854;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 18px;
+            color: #b0c4d4;
+        }
+        
+        /* Devices Section */
+        .devices {
+            padding: 80px 0;
+            background-color: #0c1c2c;
+        }
+        
+        .devices-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .device-item {
+            text-align: center;
+            padding: 20px;
+            width: 150px;
+        }
+        
+        .device-item i {
+            font-size: 48px;
+            color: #00a854;
+            margin-bottom: 15px;
+        }
+        
+        .device-item span {
+            font-weight: 500;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(to right, #0c1c2c, #0f2842);
+        }
+        
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        
+        .cta p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: #b0c4d4;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #081420;
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-links a {
+            color: #b0c4d4;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #00a854;
+        }
+        
+        .copyright {
+            color: #6c8ba7;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 15px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .section-title {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    ExpressVPN
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#benefits">Benefits</a></li>
+                        <li><a href="#devices">Devices</a></li>
+                        <li><a href="#global">Global Stats</a></li>
+                    </ul>
+                </nav>
+                <a href="#cta" class="btn">Get ExpressVPN</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <span class="tagline">The VPN that just works</span>
+            <h1>Go further with the #1 trusted leader in VPN</h1>
+            <p>Secure access, worldwide. Connect reliably from anywhere, to anywhere. Our network of high-speed servers across 94 countries puts you in control.</p>
+            <a href="#cta" class="btn">Get ExpressVPN</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose ExpressVPN?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-globe"></i>
+                    <h3>Secure access, worldwide</h3>
+                    <p>Connect reliably from anywhere, to anywhere. Our network of high-speed servers across 94 countries puts you in control.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Lightning quick connectivity</h3>
+                    <p>Our VPN network is built for speed and powered by proprietary technology to ensure quick and stable connections.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-lock"></i>
+                    <h3>Stronger data protection</h3>
+                    <p>Take charge of your online privacy and security with best-in-class encryption and our no-log policy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="benefits">
+        <div class="container">
+            <div class="benefits-content">
+                <div class="benefits-text">
+                    <h2>One click to a safer internet</h2>
+                    <p>Experience the internet the way it's meant to be. On the go, at home, or on public Wi-Fi, keep your personal information more private and secure.</p>
+                    <p>Use ExpressVPN on every device. Phone, tablet, computer, router—no matter where you are or what devices you use, a single subscription has got you covered.</p>
+                    <a href="#cta" class="btn">Get ExpressVPN</a>
+                </div>
+                <div class="benefits-image">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Secure VPN Connection">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Stats -->
+    <section id="global" class="global-stats">
+        <div class="container">
+            <h2 class="section-title">Ultra-fast servers around the globe</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">94</div>
+                    <div class="stat-label">Countries</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">160</div>
+                    <div class="stat-label">Locations</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Unlimited bandwidth</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Devices Section -->
+    <section id="devices" class="devices">
+        <div class="container">
+            <h2 class="section-title">Use on all your devices</h2>
+            <div class="devices-list">
+                <div class="device-item">
+                    <i class="fas fa-laptop"></i>
+                    <span>Computers</span>
+                </div>
+                <div class="device-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Phones</span>
+                </div>
+                <div class="device-item">
+                    <i class="fas fa-tablet-alt"></i>
+                    <span>Tablets</span>
+                </div>
+                <div class="device-item">
+                    <i class="fas fa-wifi"></i>
+                    <span>Routers</span>
+                </div>
+                <div class="device-item">
+                    <i class="fas fa-tv"></i>
+                    <span>Streaming</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="cta">
+        <div class="container">
+            <h2>Ready to secure your internet?</h2>
+            <p>Join millions of users worldwide who trust ExpressVPN for their online privacy and security. Get started today with our 30-day money-back guarantee.</p>
+            <a href="#" class="btn">Get ExpressVPN Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Support</a>
+                <a href="#">About Us</a>
+            </div>
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                ExpressVPN
+            </div>
+            <p class="copyright">© 2023 ExpressVPN. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add animation to stats when they come into view
+        const observerOptions = {
+            threshold: 0.5
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const finalValue = stat.textContent;
+                        let currentValue = 0;
+                        
+                        if(finalValue !== '∞') {
+                            const increment = Math.ceil(parseInt(finalValue) / 50);
+                            const timer = setInterval(() => {
+                                currentValue += increment;
+                                if(currentValue > parseInt(finalValue)) {
+                                    stat.textContent = finalValue;
+                                    clearInterval(timer);
+                                } else {
+                                    stat.textContent = currentValue;
+                                }
+                            }, 30);
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+        
+        const statsSection = document.querySelector('.global-stats');
+        if(statsSection) {
+            observer.observe(statsSection);
+        }
+    </script>
+</body>
+</html>
